@@ -42,6 +42,7 @@ class BusinessList:
         Args:
             filename (str): filename
         """
+        self.dataframe().drop_duplicates
         self.dataframe().to_excel(f"{filename}.xlsx", index=False)
 
     def save_to_csv(self, filename):
@@ -50,6 +51,7 @@ class BusinessList:
         Args:
             filename (str): filename
         """
+        self.dataframe().drop_duplicates
         self.dataframe().to_csv(f"{filename}.csv", index=False)
 
 
@@ -154,7 +156,7 @@ def main():
                     .replace(",", ".")
                     .strip()
                 )
-                business.reviews_count = int(
+                business.reviews_count = float(
                     listing.locator(reviews_span_xpath)
                     .get_attribute("aria-label")
                     .split()[2]
@@ -184,12 +186,12 @@ if __name__ == "__main__":
     else:
         # in case no arguments passed
         # the scraper will search by defaukt for:
-        search_for = "dentist new york"
+        search_for = "óticas"
 
     # total number of products to scrape. Default is 10
     if args.total:
         total = args.total
     else:
-        total = 10
+        total = 200
 
     main()
